@@ -1,0 +1,378 @@
+MySQL Shell 8.0.35
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \c --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching schema names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  JS > \sql
+Switching to SQL mode... Commands end with ;
+Fetching global names for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  SQL > create database orders;
+Query OK, 1 row affected (0.0064 sec)
+ MySQL  localhost:3306 ssl  SQL > use orders;
+Default schema set to `orders`.
+Fetching global names, object names from `orders` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  orders  SQL > create table salesreps(
+                                       -> id int primary key,
+                                       -> lastname varchar(50),
+                                       -> firstname varchar(50),
+                                       -> comission decimal(10,2)
+                                       -> );
+Query OK, 0 rows affected (0.0257 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > show table salesreps;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salesreps' at line 1
+ MySQL  localhost:3306 ssl  orders  SQL > desc salesreps;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| id        | int           | NO   | PRI | NULL    |       |
+| lastname  | varchar(50)   | YES  |     | NULL    |       |
+| firstname | varchar(50)   | YES  |     | NULL    |       |
+| comission | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+4 rows in set (0.0078 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > CREATE TABLE customers (
+                                       ->     ID INT PRIMARY KEY,
+                                       ->     lastname VARCHAR(255),
+                                       ->     firstname VARCHAR(255),
+                                       ->     companyName VARCHAR(255),
+                                       ->     street VARCHAR(255),
+                                       ->     street2 VARCHAR(255),
+                                       ->     city VARCHAR(255),
+                                       ->     state VARCHAR(255),
+                                       ->     zipcode VARCHAR(10),
+                                       ->     phone VARCHAR(20),
+                                       ->     fax VARCHAR(20),
+                                       ->     email VARCHAR(255),
+                                       ->     s_id INT,
+                                       ->     FOREIGN KEY (s_id) REFERENCES salesreps(ID)
+                                       -> );
+Query OK, 0 rows affected (0.0308 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > desc customers;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| ID          | int          | NO   | PRI | NULL    |       |
+| lastname    | varchar(255) | YES  |     | NULL    |       |
+| firstname   | varchar(255) | YES  |     | NULL    |       |
+| companyName | varchar(255) | YES  |     | NULL    |       |
+| street      | varchar(255) | YES  |     | NULL    |       |
+| street2     | varchar(255) | YES  |     | NULL    |       |
+| city        | varchar(255) | YES  |     | NULL    |       |
+| state       | varchar(255) | YES  |     | NULL    |       |
+| zipcode     | varchar(10)  | YES  |     | NULL    |       |
+| phone       | varchar(20)  | YES  |     | NULL    |       |
+| fax         | varchar(20)  | YES  |     | NULL    |       |
+| email       | varchar(255) | YES  |     | NULL    |       |
+| s_id        | int          | YES  | MUL | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+13 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE customers
+                                       -> MODIFY ID INT NOT NULL;
+Query OK, 0 rows affected (0.0119 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > alter table customers
+                                       -> modify lastname varchar(50) not null;
+Query OK, 0 rows affected (0.0652 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > alter table customers modify firstname varchar(50) not null;
+Query OK, 0 rows affected (0.0726 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > alter table customers modify comission decimal(10,2) not null;
+ERROR: 1054 (42S22): Unknown column 'comission' in 'customers'
+ MySQL  localhost:3306 ssl  orders  SQL > alter table salesreps modify comission decimal(10,2) not null;
+Query OK, 0 rows affected (0.0498 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > alter table salesreps modify lastname varchar(50) not null;
+Query OK, 0 rows affected (0.0480 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > alter table salesreps modify firstname varchar(50) not null;
+Query OK, 0 rows affected (0.1686 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > desc salesreps;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| id        | int           | NO   | PRI | NULL    |       |
+| lastname  | varchar(50)   | NO   |     | NULL    |       |
+| firstname | varchar(50)   | NO   |     | NULL    |       |
+| comission | decimal(10,2) | NO   |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+4 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > desc customers;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| ID          | int          | NO   | PRI | NULL    |       |
+| lastname    | varchar(50)  | NO   |     | NULL    |       |
+| firstname   | varchar(50)  | NO   |     | NULL    |       |
+| companyName | varchar(255) | YES  |     | NULL    |       |
+| street      | varchar(255) | YES  |     | NULL    |       |
+| street2     | varchar(255) | YES  |     | NULL    |       |
+| city        | varchar(255) | YES  |     | NULL    |       |
+| state       | varchar(255) | YES  |     | NULL    |       |
+| zipcode     | varchar(10)  | YES  |     | NULL    |       |
+| phone       | varchar(20)  | YES  |     | NULL    |       |
+| fax         | varchar(20)  | YES  |     | NULL    |       |
+| email       | varchar(255) | YES  |     | NULL    |       |
+| s_id        | int          | YES  | MUL | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+13 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > alter table customers modify s_id int not null;
+Query OK, 0 rows affected (0.0586 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > desc customers;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| ID          | int          | NO   | PRI | NULL    |       |
+| lastname    | varchar(50)  | NO   |     | NULL    |       |
+| firstname   | varchar(50)  | NO   |     | NULL    |       |
+| companyName | varchar(255) | YES  |     | NULL    |       |
+| street      | varchar(255) | YES  |     | NULL    |       |
+| street2     | varchar(255) | YES  |     | NULL    |       |
+| city        | varchar(255) | YES  |     | NULL    |       |
+| state       | varchar(255) | YES  |     | NULL    |       |
+| zipcode     | varchar(10)  | YES  |     | NULL    |       |
+| phone       | varchar(20)  | YES  |     | NULL    |       |
+| fax         | varchar(20)  | YES  |     | NULL    |       |
+| email       | varchar(255) | YES  |     | NULL    |       |
+| s_id        | int          | NO   | MUL | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+13 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE customers
+                                       -> ADD CONSTRAINT fk_salesreps
+                                       -> FOREIGN KEY (s_id)
+                                       -> REFERENCES salesreps(ID);
+Query OK, 0 rows affected (0.0835 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > create table orders(
+                                       ->
+                                       -> 90e;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+ MySQL  localhost:3306 ssl  orders  SQL > CREATE TABLE orders (
+                                       ->     ID INT PRIMARY KEY,
+                                       ->     C_ID INT NOT NULL,
+                                       ->     orderdate DATE NOT NULL,
+                                       ->     shipdate DATE NULL,
+                                       ->     paiddate DATE NULL,
+                                       ->     status VARCHAR(50)
+                                       -> );
+Query OK, 0 rows affected (0.0251 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > alter table orders
+                                       -> modify status varchar(50) null;
+Query OK, 0 rows affected (0.0110 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > desc orders;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | NO   | PRI | NULL    |       |
+| C_ID      | int         | NO   |     | NULL    |       |
+| orderdate | date        | NO   |     | NULL    |       |
+| shipdate  | date        | YES  |     | NULL    |       |
+| paiddate  | date        | YES  |     | NULL    |       |
+| status    | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE orders
+                                       -> ADD CONSTRAINT fk_customers
+                                       -> FOREIGN KEY (C_ID)
+                                       -> REFERENCES customers(ID);
+Query OK, 0 rows affected (0.0619 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > CREATE TABLE items (
+                                       ->     id INT PRIMARY KEY,
+                                       ->     O_ID INT NOT NULL,
+                                       ->     P_ID INT NOT NULL,
+                                       ->     quantity INT NOT NULL
+                                       -> );
+Query OK, 0 rows affected (0.0273 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE items
+                                       -> ADD CONSTRAINT fk_orders
+                                       -> FOREIGN KEY (O_ID)
+                                       -> REFERENCES orders(ID);
+Query OK, 0 rows affected (0.0586 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > CREATE TABLE parts (
+                                       ->     ID INT PRIMARY KEY,
+                                       ->     description VARCHAR(255) NOT NULL,
+                                       ->     unitprice DECIMAL(10, 2) NOT NULL,
+                                       ->     onhand INT NOT NULL,
+                                       ->     reorder INT NOT NULL
+                                       -> );
+Query OK, 0 rows affected (0.0277 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > desc items;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| id       | int  | NO   | PRI | NULL    |       |
+| O_ID     | int  | NO   | MUL | NULL    |       |
+| P_ID     | int  | NO   |     | NULL    |       |
+| quantity | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+4 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > desc parts;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| ID          | int           | NO   | PRI | NULL    |       |
+| description | varchar(255)  | NO   |     | NULL    |       |
+| unitprice   | decimal(10,2) | NO   |     | NULL    |       |
+| onhand      | int           | NO   |     | NULL    |       |
+| reorder     | int           | NO   |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+5 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE items
+                                       -> ADD CONSTRAINT fk_parts
+                                       -> FOREIGN KEY (P_ID)
+                                       -> REFERENCES parts(ID);
+Query OK, 0 rows affected (0.0659 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > desc parts;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| ID          | int           | NO   | PRI | NULL    |       |
+| description | varchar(255)  | NO   |     | NULL    |       |
+| unitprice   | decimal(10,2) | NO   |     | NULL    |       |
+| onhand      | int           | NO   |     | NULL    |       |
+| reorder     | int           | NO   |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+5 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > show database orders;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database orders' at line 1
+ MySQL  localhost:3306 ssl  orders  SQL > show database;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+ MySQL  localhost:3306 ssl  orders  SQL > show database;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+ MySQL  localhost:3306 ssl  orders  SQL > show database
+                                       -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+ MySQL  localhost:3306 ssl  orders  SQL > show tables;
++------------------+
+| Tables_in_orders |
++------------------+
+| customers        |
+| items            |
+| orders           |
+| parts            |
+| salesreps        |
++------------------+
+5 rows in set (0.0040 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > show create table customers;
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table
+
+
+
+
+
+                                                         |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| customers | CREATE TABLE `customers` (
+  `ID` int NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `companyName` varchar(255) DEFAULT NULL,
+  `street` varchar(255) DEFAULT NULL,
+  `street2` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `zipcode` varchar(10) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `fax` varchar(20) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `s_id` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fk_salesreps` (`s_id`),
+  CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `salesreps` (`id`),
+  CONSTRAINT `fk_salesreps` FOREIGN KEY (`s_id`) REFERENCES `salesreps` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > desc orders;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ID        | int         | NO   | PRI | NULL    |       |
+| C_ID      | int         | NO   | MUL | NULL    |       |
+| orderdate | date        | NO   |     | NULL    |       |
+| shipdate  | date        | YES  |     | NULL    |       |
+| paiddate  | date        | YES  |     | NULL    |       |
+| status    | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > desc parts;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| ID          | int           | NO   | PRI | NULL    |       |
+| description | varchar(255)  | NO   |     | NULL    |       |
+| unitprice   | decimal(10,2) | NO   |     | NULL    |       |
+| onhand      | int           | NO   |     | NULL    |       |
+| reorder     | int           | NO   |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+5 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE customers
+                                       -> MODIFY COLUMN ID INT AUTO_INCREMENT;
+ERROR: 1833 (HY000): Cannot change column 'ID': used in a foreign key constraint 'fk_customers' of table 'orders.orders'
+ MySQL  localhost:3306 ssl  orders  SQL > alter table salesreps(
+                                       -> modify ID int auto_increment;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+modify ID int auto_increment' at line 1
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE orders
+                                       -> DROP FOREIGN KEY fk_customers;
+Query OK, 0 rows affected (0.0137 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE customers
+                                       -> MODIFY COLUMN ID INT AUTO_INCREMENT;
+Query OK, 0 rows affected (0.0651 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE orders
+                                       -> ADD CONSTRAINT fk_customers
+                                       -> FOREIGN KEY (C_ID)
+                                       -> REFERENCES customers(ID);
+Query OK, 0 rows affected (0.0634 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  orders  SQL > show create table salesreps;
++-----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table
+
+                   |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| salesreps | CREATE TABLE `salesreps` (
+  `id` int NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `comission` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  orders  SQL > ALTER TABLE salesreps
+                                       -> ADD CONSTRAINT pk_salesreps PRIMARY KEY (ID);
+ERROR: 1068 (42000): Multiple primary key defined
+ MySQL  localhost:3306 ssl  orders  SQL >
