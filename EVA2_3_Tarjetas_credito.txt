@@ -1,0 +1,57 @@
+MySQL Shell 8.0.36
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.36 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| credit_cards       |
+| human_resources    |
+| information_schema |
+| mysql              |
+| orders             |
+| performance_schema |
+| sakila             |
+| sys                |
+| tbd2               |
+| world              |
++--------------------+
+10 rows in set (0.0790 sec)
+ MySQL  localhost:3306 ssl  SQL > CREATE DATABASE tarejetas;
+Query OK, 1 row affected (0.1038 sec)
+ MySQL  localhost:3306 ssl  SQL > use tarjetas;
+MySQL Error 1049: Unknown database 'tarjetas'
+ MySQL  localhost:3306 ssl  SQL > use tarejetas;
+Default schema set to `tarejetas`.
+Fetching global names, object names from `tarejetas` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tarejetas  SQL > CREATE TABLE clientes( id_Clientes INT NOT NULL AUTO_INCREMENT key, nombre var
+VARBINARY     VARCHAR       VARCHARACTER
+ MySQL  localhost:3306 ssl  tarejetas  SQL > CREATE TABLE clientes( id_Clientes INT NOT NULL AUTO_INCREMENT key, nombre VARCHAR(50) not null);
+Query OK, 0 rows affected (0.2024 sec)
+ MySQL  localhost:3306 ssl  tarejetas  SQL > CREATE TABLE bancos(id_banco INT NOT NULL AUTO_INCREMENT KEY, nombre VARCHAR(50) NOT NULL);
+Query OK, 0 rows affected (0.0904 sec)
+ MySQL  localhost:3306 ssl  tarejetas  SQL > ALTER TABLE clientes CHANGE id_clientes id_cliente int NOT NULL AUTO_INCREMENT key;
+ERROR: 1068 (42000): Multiple primary key defined
+ MySQL  localhost:3306 ssl  tarejetas  SQL > ALTER table clientes RENAME COLUMN id_clientes id_cliente;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id_cliente' at line 1
+ MySQL  localhost:3306 ssl  tarejetas  SQL > ALTER table clientes RENAME COLUMN id_clientes to id_cliente;
+Query OK, 0 rows affected (0.1255 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tarejetas  SQL > CREATE table tarjetas(id_tarjeta INT NOT NULL key AUTO_INCREMENT, nombre VARCHAR(50));
+Query OK, 0 rows affected (0.1425 sec)
+ MySQL  localhost:3306 ssl  tarejetas  SQL > CREATE TABLE carjetasCliente(id_tcliente int NOT NULL KEY AUTO_INCREMENT, cardnumber VARCHAR(16) NOT NULL, fecha_emision date NOT NULL, fecha_corte DATE NOT NULL, pin int NOT NULL, credito FLOAT not NULL, id_cliente INT, id_banco INT NOT NULL, id_tarjeta INT NOT NULL, foreing key (id_cliente) references clientes(id_cliente) on delete cascade on update cascade, foreing key (id_banco) references bancos(id_banco) on delete cascade on update cascade, foregin key(id_tarjeta) on delete cascade on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (id_cliente) references clientes(id_cliente) on delete cascade on update cas' at line 1
+ MySQL  localhost:3306 ssl  tarejetas  SQL > CREATE TABLE carjetasCliente(id_tcliente int NOT NULL KEY AUTO_INCREMENT, cardnumber VARCHAR(16) NOT NULL, fecha_emision date NOT NULL, fecha_corte DATE NOT NULL, pin int NOT NULL, credito FLOAT not NULL, id_cliente INT, id_banco INT NOT NULL, id_tarjeta INT NOT NULL, foreing key (id_cliente) references clientes(id_cliente) on delete cascade on update cascade, foreing key (id_banco) references bancos(id_banco) on delete cascade on update cascade, foregin key(id_tarjeta) on delete cascade on update cascade);
