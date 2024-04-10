@@ -1,0 +1,244 @@
+MySQL Shell 8.0.35
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \c --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create user 'prueba'@'localhost';
+ERROR: 1396 (HY000): Operation CREATE USER failed for 'prueba'@'localhost'
+ MySQL  localhost:3306 ssl  SQL > create user 'prueba'@'localhost' identified by '23julio2010';
+ERROR: 1396 (HY000): Operation CREATE USER failed for 'prueba'@'localhost'
+ MySQL  localhost:3306 ssl  SQL > create user 'prueba'@'localhost' identified by '23julio2010';
+ERROR: 1396 (HY000): Operation CREATE USER failed for 'prueba'@'localhost'
+ MySQL  localhost:3306 ssl  SQL > CREATE USER 'prueba'@'localhost' IDENTIFIED BY '23julio2010';
+ERROR: 1396 (HY000): Operation CREATE USER failed for 'prueba'@'localhost'
+ MySQL  localhost:3306 ssl  SQL > \c --mc prueba@localhost
+Creating a Classic session to 'prueba@localhost'
+Please provide the password for 'prueba@localhost': ***********
+Save password for 'prueba@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Closing old connection...
+Your MySQL connection id is 10
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.0630 sec)
+ MySQL  localhost:3306 ssl  SQL > create database prueba;
+ERROR: 1044 (42000): Access denied for user 'prueba'@'localhost' to database 'prueba'
+ MySQL  localhost:3306 ssl  SQL > \c --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 11
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > grant databses;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| company            |
+| examen_practico    |
+| information_schema |
+| mysql              |
+| orders             |
+| performance_schema |
+| sakila             |
+| sys                |
+| tbd_3              |
+| world              |
++--------------------+
+10 rows in set (0.0024 sec)
+ MySQL  localhost:3306 ssl  SQL > use company;
+Default schema set to `company`.
+Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  company  SQL > show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| address           |
+| employee          |
+| projects          |
++-------------------+
+3 rows in set (0.0034 sec)
+ MySQL  localhost:3306 ssl  company  SQL > grant all on company.* to 'prueba'@'localhost';
+Query OK, 0 rows affected (0.0670 sec)
+ MySQL  localhost:3306 ssl  company  SQL > \c --mc prueba@localhost
+Creating a Classic session to 'prueba@localhost'
+Please provide the password for 'prueba@localhost': ***********
+Save password for 'prueba@localhost'? [Y]es/[N]o/Ne[v]er (default No): y
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Closing old connection...
+Your MySQL connection id is 12
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| company            |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.0025 sec)
+ MySQL  localhost:3306 ssl  SQL > use company;
+Default schema set to `company`.
+Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  company  SQL > show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| address           |
+| employee          |
+| projects          |
++-------------------+
+3 rows in set (0.0036 sec)
+ MySQL  localhost:3306 ssl  company  SQL > create table x(
+                                        -> id int);
+Query OK, 0 rows affected (0.1215 sec)
+ MySQL  localhost:3306 ssl  company  SQL > show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| address           |
+| employee          |
+| projects          |
+| x                 |
++-------------------+
+4 rows in set (0.0035 sec)
+ MySQL  localhost:3306 ssl  company  SQL > create database Juan;
+ERROR: 1044 (42000): Access denied for user 'prueba'@'localhost' to database 'juan'
+ MySQL  localhost:3306 ssl  company  SQL > select * from address limit 10;
++-----------+------------+---------+-------------+---------+
+| AddressId | EmployeeId | Country | State       | City    |
++-----------+------------+---------+-------------+---------+
+|         1 |       1001 | India   | Odisha      | BBSR    |
+|         2 |       1002 | India   | Maharashtra | Mumbai  |
+|         3 |       1003 | India   | Maharashtra | Pune    |
+|         4 |       1004 | India   | Odisha      | Cuttack |
+|         5 |       1005 | India   | Maharashtra | Nagpur  |
+|         6 |       1006 | India   | Odisha      | BBSR    |
++-----------+------------+---------+-------------+---------+
+6 rows in set (0.0515 sec)
+ MySQL  localhost:3306 ssl  company  SQL > create user 'pruebax'@'localhost' identified by 'olaaaa';
+ERROR: 1227 (42000): Access denied; you need (at least one of) the CREATE USER privilege(s) for this operation
+ MySQL  localhost:3306 ssl  company  SQL > \c --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 13
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create user 'prueba'@'localhost' identified by '23julio2010';
+ERROR: 1396 (HY000): Operation CREATE USER failed for 'prueba'@'localhost'
+ MySQL  localhost:3306 ssl  SQL > create user 'pruebax'@'localhost' identified by '23julio2010';
+Query OK, 0 rows affected (0.0719 sec)
+ MySQL  localhost:3306 ssl  SQL > grant select on company.* to 'pruebax'@'localhost';
+Query OK, 0 rows affected (0.0506 sec)
+ MySQL  localhost:3306 ssl  SQL > \c --mc pruebax@localhost
+Creating a Classic session to 'pruebax@localhost'
+Please provide the password for 'pruebax@localhost': ***********
+Save password for 'pruebax@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Closing old connection...
+Your MySQL connection id is 14
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use company;
+Default schema set to `company`.
+Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  company  SQL > show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| address           |
+| employee          |
+| projects          |
+| x                 |
++-------------------+
+4 rows in set (0.0044 sec)
+ MySQL  localhost:3306 ssl  company  SQL > insert into x values(100);
+ERROR: 1142 (42000): INSERT command denied to user 'pruebax'@'localhost' for table 'x'
+ MySQL  localhost:3306 ssl  company  SQL > delete from address
+                                        -> ;
+ERROR: 1142 (42000): DELETE command denied to user 'pruebax'@'localhost' for table 'address'
+ MySQL  localhost:3306 ssl  company  SQL > select * from address;
++-----------+------------+---------+-------------+---------+
+| AddressId | EmployeeId | Country | State       | City    |
++-----------+------------+---------+-------------+---------+
+|         1 |       1001 | India   | Odisha      | BBSR    |
+|         2 |       1002 | India   | Maharashtra | Mumbai  |
+|         3 |       1003 | India   | Maharashtra | Pune    |
+|         4 |       1004 | India   | Odisha      | Cuttack |
+|         5 |       1005 | India   | Maharashtra | Nagpur  |
+|         6 |       1006 | India   | Odisha      | BBSR    |
++-----------+------------+---------+-------------+---------+
+6 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  company  SQL > create table y(id int);
+ERROR: 1142 (42000): CREATE command denied to user 'pruebax'@'localhost' for table 'y'
+ MySQL  localhost:3306 ssl  company  SQL > \c --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 15
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create user 'pruebay'@'localhost' identified by '23julio2010';
+Query OK, 0 rows affected (0.0486 sec)
+ MySQL  localhost:3306 ssl  SQL > grant select(employeeid) on company.address to 'pruebay'@'localhost';
+Query OK, 0 rows affected (0.0516 sec)
+ MySQL  localhost:3306 ssl  SQL > \c --mc pruebay@localhost
+Creating a Classic session to 'pruebay@localhost'
+Please provide the password for 'pruebay@localhost': ***********
+Save password for 'pruebay@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Closing old connection...
+Your MySQL connection id is 16
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use company;
+Default schema set to `company`.
+Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  company  SQL > show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| address           |
++-------------------+
+1 row in set (0.0035 sec)
+ MySQL  localhost:3306 ssl  company  SQL > select * from address;
+ERROR: 1143 (42000): SELECT command denied to user 'pruebay'@'localhost' for column 'AddressId' in table 'address'
+ MySQL  localhost:3306 ssl  company  SQL > select employeeid from address
+                                        -> ;
++------------+
+| employeeid |
++------------+
+|       1001 |
+|       1002 |
+|       1003 |
+|       1004 |
+|       1005 |
+|       1006 |
++------------+
+6 rows in set (0.0023 sec)
+ MySQL  localhost:3306 ssl  company  SQL >
