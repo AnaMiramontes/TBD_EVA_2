@@ -1,0 +1,60 @@
+MySQL Shell 8.0.35
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \c --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching schema names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  JS > \sql
+Switching to SQL mode... Commands end with ;
+Fetching global names for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  SQL > create roles 'role_lectura';
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'roles 'role_lectura'' at line 1
+ MySQL  localhost:3306 ssl  SQL > create role 'role_lectura';
+Query OK, 0 rows affected (0.0339 sec)
+ MySQL  localhost:3306 ssl  SQL > grant select on *.* to 'role_lectura';
+Query OK, 0 rows affected (0.0109 sec)
+ MySQL  localhost:3306 ssl  SQL > create user 'sololecutra'@'localhost' identified by '23julio2010';
+Query OK, 0 rows affected (0.0156 sec)
+ MySQL  localhost:3306 ssl  SQL > grant 'role_lectura' to 'sololectura'@'localhost';
+ERROR: 3523 (HY000): Unknown authorization ID `sololectura`@`localhost`
+ MySQL  localhost:3306 ssl  SQL > grant 'role_lectura' to 'sololectura'@'localhost';
+ERROR: 3523 (HY000): Unknown authorization ID `sololectura`@`localhost`
+ MySQL  localhost:3306 ssl  SQL > activate_all_roles_on_login;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'activate_all_roles_on_login' at line 1
+ MySQL  localhost:3306 ssl  SQL > activate_all_roles_on_login
+                               -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'activate_all_roles_on_login' at line 1
+ MySQL  localhost:3306 ssl  SQL > grant 'role_lectura' to 'sololecutra'@'localhost';
+Query OK, 0 rows affected (0.0077 sec)
+ MySQL  localhost:3306 ssl  SQL > set persiste activate_all_roles_on_login=on;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'activate_all_roles_on_login=on' at line 1
+ MySQL  localhost:3306 ssl  SQL > set persist activate_all_roles_on_login=on;
+Query OK, 0 rows affected (0.0059 sec)
+ MySQL  localhost:3306 ssl  SQL > \c --mc sololectura@localhost
+Creating a Classic session to 'sololectura@localhost'
+Please provide the password for 'sololectura@localhost': ***********
+MySQL Error 1045 (28000): Access denied for user 'sololectura'@'localhost' (using password: YES)
+ MySQL  localhost:3306 ssl  SQL > \c --mc sololectura@localhost
+Creating a Classic session to 'sololectura@localhost'
+Please provide the password for 'sololectura@localhost': ***********
+MySQL Error 1045 (28000): Access denied for user 'sololectura'@'localhost' (using password: YES)
+ MySQL  localhost:3306 ssl  SQL > \c --mc sololectura@localhost
+Creating a Classic session to 'sololectura@localhost'
+Please provide the password for 'sololectura@localhost': ***********
+MySQL Error 1045 (28000): Access denied for user 'sololectura'@'localhost' (using password: YES)
+ MySQL  localhost:3306 ssl  SQL > \c --mc sololectura@localhost
+Creating a Classic session to 'sololectura@localhost'
+Please provide the password for 'sololectura@localhost': ***********
+MySQL Error 1045 (28000): Access denied for user 'sololectura'@'localhost' (using password: YES)
+ MySQL  localhost:3306 ssl  SQL > \c --mc sololectura@localhost
+Creating a Classic session to 'sololectura@localhost'
+Please provide the password for 'sololectura@localhost': ***********
+MySQL Error 1045 (28000): Access denied for user 'sololectura'@'localhost' (using password: YES)
+ MySQL  localhost:3306 ssl  SQL >
